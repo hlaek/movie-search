@@ -1,12 +1,26 @@
-import { useEffect } from "react";
-import { Link } from "react-router";
-import type { MovieDetails, MovieResults } from "~/type";
+import { useEffect, useState } from "react";
+import { fetchWatchProviders } from "~/services/moviedb";
+import type { MovieDetails, Provider, WatchProviders } from "~/type";
 
 export const MovieDetailsCard = ({
   movieDetails,
 }: {
   movieDetails: MovieDetails;
 }) => {
+  const [watchProviders, setWatchProviders] = useState<WatchProviders | null>(
+    null
+  );
+
+  const providers = async () => {
+    const result = await fetchWatchProviders(movieDetails.id);
+    setWatchProviders(result);
+  };
+
+  useEffect(() => {
+    console.log("use Effect");
+    providers();
+  }, []);
+
   return (
     <div
       key={movieDetails.id}
@@ -33,10 +47,49 @@ export const MovieDetailsCard = ({
         </li>
       </ul>
 
-      <div className="flex flex-col items-start bg-pink-300 p-4 rounded-t-lg w-full">
-        <h5>Where to Watch</h5>
-      </div>
-      <div className="flex flex-col items-start bg-white p-4 rounded-b-lg w-full"></div>
+      {watchProviders && (
+        <>
+          <div className="flex flex-col items-start bg-pink-300 p-4 rounded-t-lg w-full">
+            <h5>Where to Watch</h5>
+          </div>
+          <div className="flex flex-col items-start bg-white p-4 rounded-b-lg w-full">
+            {watchProviders?.US.flatrate && (
+              <div>
+                <title>Stream</title>
+                <ul>
+                  {watchProviders?.US.flatrate.map((link: Provider) => (
+                    <li key={link.provider_id}>
+                      <img src={link.logo_path} alt={link.provider_name} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {watchProviders?.US.buy && (
+              <div>
+                <title>Buy</title>
+                <ul>
+                  {watchProviders?.US.buy.map((link: Provider) => (
+                    <li key={link.provider_id}>
+                      <img src={link.logo_path} alt={link.provider_name} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {watchProviders?.US.rent && (
+              <div>
+                <title>Rent</title>
+                {watchProviders?.US.rent.map((link: Provider) => (
+                  <li key={link.provider_id}>
+                    <img src={link.logo_path} alt={link.provider_name} />
+                  </li>
+                ))}
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };

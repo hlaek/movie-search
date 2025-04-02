@@ -76,3 +76,38 @@ export const fetchMovieDetails = async (
   }
   return null;
 };
+
+export const fetchWatchProviders = async (
+  movieId: number
+): Promise<null | any> => {
+  console.log("fetch");
+  try {
+    if (!movieId) {
+      throw new Error("Movie ID is required");
+    }
+    const movieDetails = await fetch(
+      `${process.env.API_URL}/3/movie/${movieId}/watch/providers`,
+      options
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        console.log("movieDetails", movieDetails);
+
+        return response.json();
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+    if (!movieDetails) {
+      throw new Error("No watch providers found");
+    }
+    console.log("movieDetails", movieDetails);
+
+    return movieDetails;
+  } catch (error) {
+    console.error("Error fetching watch providers:", error);
+  }
+  return null;
+};

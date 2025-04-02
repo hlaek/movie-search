@@ -4,6 +4,7 @@ import { describe, test, expect, vi, beforeEach } from "vitest";
 import type { MovieDetails } from "~/type";
 import type { Route } from "./+types/movieDetails";
 import MovieDetailsRoute from "./movieDetails";
+import { fetchWatchProviders } from "~/services/moviedb";
 
 vi.mock("~/services/moviedb", () => {
   return {

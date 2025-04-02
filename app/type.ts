@@ -82,3 +82,49 @@ interface SpokenLanguage {
   iso_639_1: string;
   name: string;
 }
+
+export interface WatchProviders {
+  US: USProviders;
+}
+
+interface USProviders {
+  link: string;
+  rent: Provider[];
+  flatrate: Provider[];
+  buy: Provider[];
+}
+
+export interface Provider {
+  logo_path: string;
+  provider_id: number;
+  provider_name: string;
+  display_priority: number;
+}
+
+export namespace Route {
+  export interface ComponentProps {
+    loaderData: unknown;
+    params: {
+      movieCategory?: MovieCategory;
+    };
+    matches: Array<{
+      id: string;
+      pathname: string;
+      params: { movieCategory?: MovieCategory };
+      data: unknown;
+      handle: Record<string, unknown>;
+    }>;
+  }
+
+  export interface MetaArgs {
+    params: {
+      movieCategory?: MovieCategory;
+    };
+  }
+
+  export interface ClientLoaderArgs {
+    params: {
+      movieCategory?: MovieCategory;
+    };
+  }
+}
