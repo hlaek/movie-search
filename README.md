@@ -16,14 +16,13 @@ A modern, production-ready template for building full-stack React applications u
 
 ## Getting Started
 
-### Env 
+### Env
 
 Should have received Env Values from Hannah:
 
 ```bash
-hnlaek@gmail.com 
+h**aek@gmail.com
 ```
-
 
 ### Installation
 
