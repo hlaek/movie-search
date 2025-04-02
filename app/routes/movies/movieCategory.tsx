@@ -1,6 +1,5 @@
 import { Link, useParams } from "react-router";
 import { fetchMovies } from "~/services/moviedb";
-import { Pagination } from "~/components/Pagination";
 import type { Route } from "../../+types/root";
 import { MovieCategory, type MovieResults, type Movies } from "~/type";
 import MovieCategoryCard from "~/components/MovieCategoryCard";
@@ -33,10 +32,6 @@ export async function loader({ params }: Route.ClientLoaderArgs) {
   }
 }
 
-export function HydrateFallback() {
-  return <div>Loading...</div>;
-}
-
 export default function MovieListSearch({
   loaderData,
   params,
@@ -50,7 +45,7 @@ export default function MovieListSearch({
   }
 
   return (
-    <div className="movies-list container m-auto p-4 max-w-4xl">
+    <div className="movies-list container m-auto p-4 max-w-300">
       <h1 className="uppercase">
         {params ? formattedCategory : "Movie Category"}
       </h1>

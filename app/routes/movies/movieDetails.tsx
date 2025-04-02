@@ -1,9 +1,18 @@
 import { fetchMovieDetails } from "~/services/moviedb";
 import type { Route } from "./+types/movieDetails";
-import { useParams } from "react-router";
-import type { MovieDetails, MovieDetails } from "~/type";
+import type { MovieDetails } from "~/type";
+import { MovieDetailsCard } from "~/components/MovieDetailsCard";
 
-export async function loader({ params }: Route.ClientLoaderArgs) {
+export function meta({ params }: Route.MetaArgs) {
+  const movieId = params.movieId;
+
+  return [
+    { title: "Movie Details" },
+    { name: movieId, content: "Description" },
+  ];
+}
+
+export async function loader({ params }: Route.LoaderArgs) {
   const id = Number(params.movieId);
 
   try {
@@ -34,17 +43,7 @@ export default function MovieDetailsRoute({
   return (
     <div className="movies-list">
       <div className="flex flex-row ...">
-        <div key={movieDetails.id} className="movie-card">
-          <img
-            src={`https://image.tmdb.org/t/p/w500${movieDetails.backdrop_path}`}
-            alt={movieDetails.original_title}
-          />
-          <h1>{movieDetails.original_title}</h1>
-          <h4>{movieDetails.release_date}</h4>
-          <p>{movieDetails.overview}</p>
-
-          <h5>Where to Watch</h5>
-        </div>
+        <MovieDetailsCard movieDetails={movieDetails} />
       </div>
     </div>
   );

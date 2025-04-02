@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-router/node": "^7.4.1",
     "@react-router/serve": "^7.4.1",
+    "@vitejs/plugin-react": "^4.3.4",
     "isbot": "^5.1.17",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -45,7 +46,9 @@
   },
   "jest": {
     "testEnvironment": "jsdom",
-    "setupFilesAfterEnv": ["<rootDir>/app/test/setup.ts"],
+    "setupFilesAfterEnv": [
+      "<rootDir>/app/test/setup.ts"
+    ],
     "moduleNameMapper": {
       "^~/(.*)$": "<rootDir>/app/$1"
     },

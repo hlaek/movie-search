@@ -1,7 +1,6 @@
 import { Link } from "react-router";
 import type { MovieResults } from "~/type";
 
-// compnat that takes a movie object and returns a card with the movie details
 const MovieCategoryCard = ({ movie }: { movie: MovieResults }) => {
   return (
     <div
@@ -12,9 +11,7 @@ const MovieCategoryCard = ({ movie }: { movie: MovieResults }) => {
         <h5 className="movie-card__subheading leading-0 font-bold">
           {movie.release_date}
         </h5>
-        <h4 className="movie-card__heading h4 font-extrabold">
-          {movie.original_title}
-        </h4>
+        <h4 className="movie-card__heading h4 font-extrabold">{movie.title}</h4>
       </div>
       <div className="movie-card__rating flex justify-between flex-row items-center mt-auto font-sans">
         <img
